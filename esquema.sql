@@ -197,6 +197,7 @@ CREATE TABLE DADO_METEREOLOGICO (
     
 CREATE TABLE PRODUTO (
     COD_BARRAS VARCHAR2(20),
+    VAL_DIAS NUMBER(5,0), --data de validade em dias
     
     CONSTRAINT PK_PRODUTO PRIMARY KEY(COD_BARRAS)
     );
@@ -331,7 +332,7 @@ CREATE TABLE LOTE (
     DATA_PROD DATE,
     OBSERVACOES CLOB,
     STATUS VARCHAR2(20),
-    DATA_VAL DATE, --data de validade é um atributo derivada, mais um trigger para criar
+    DATA_VAL DATE, --data de validade é um atributo derivado, definido por um trigger
     QUANTIDADE NUMBER(5,2) NOT NULL,
     CPF_CONTROLE_QUALI VARCHAR2(14) NOT NULL,
     CPF_PRODUTOR_RESP VARCHAR2(14) NOT NULL,
@@ -360,7 +361,7 @@ BEGIN
 END;
 /
 
--- Trigger para verificar as funções de resposavel e controle qualidade dos funcioanrios do lote:    
+-- Trigger para verificar as funções de resposavel e controle qualidade dos funcionarios do lote:    
 CREATE OR REPLACE TRIGGER TRG_LOTE_1
 BEFORE INSERT OR UPDATE ON LOTE
 FOR EACH ROW
@@ -392,6 +393,23 @@ BEGIN
             'Funcionario não pertence ao setor de controle de qualidade.'
         );
     END IF;
+END;
+/
+
+-- Trigger que gera a data de validade do lote:
+CREATE OR REPLACE TRIGGER TRG_LOTE_2
+BEFORE INSERT ON LOTE 
+FOR EACH ROW
+DECLARE 
+    VAL NUMBER(5,0);
+BEGIN
+    SELECT VAL_DIAS
+    INTO VAL
+    FROM PRODUTO P
+    WHERE P.COD_BARRAS = :NEW.COD_BARRAS;
+    
+    :NEW.DATA_VAL := :NEW.DATA_PROD + VAL;
+    
 END;
 /
 
