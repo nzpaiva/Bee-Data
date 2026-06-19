@@ -1,6 +1,7 @@
 
 --Consultas:
 
+-- 1° Consulta:
 -- C1: Rastreabilidade reversa:
 SELECT L.ID_LOTE, 
     FP.NOME AS PRODUTOR_RESPONSÁVEL, 
@@ -29,6 +30,7 @@ SELECT L.ID_LOTE,
     
     GROUP BY L.ID_LOTE, FP.NOME, FCQ.NOME, A.NOME;
 
+-- 2° Consulta:
 -- C4: RELAÇÃO DE CLIMA E PRODUTIVIDADE
 SELECT DM.NOME_API AS APIARIO,
     AVG(DM.PRECIPITACAO) AS MÉDIA_PRECIPITAÇÃO,
@@ -39,6 +41,7 @@ SELECT DM.NOME_API AS APIARIO,
     
     GROUP BY DM.NOME_API;
 
+-- 3° Consulta:
 -- C8: Inventario de insumos externos:
 SELECT IE.COD_BARRAS AS INSUMOS_EM_FALTA,
     I.PEGADA_CO2 AS EMISSÃO_CO2
@@ -47,7 +50,12 @@ SELECT IE.COD_BARRAS AS INSUMOS_EM_FALTA,
     LEFT JOIN INSUMO_EXTERNO IE ON I.COD_BARRAS = IE.COD_BARRAS
     
     WHERE I.QUANTIDADE < 50;
-    
+
+-- 4° Consulta:
+-- C6: Eficiência dos apicultores:
+
+-- 5° Consulta: 
+-- C7: Produtividade dos tecnicos:
     
     
     
