@@ -34,6 +34,9 @@ def nome(value: str) -> str:
     if len(value) == 0:
         raise ValueError("Nome não pode estar vazio.")
 
+    if len(value) > 200:
+        raise ValueError("Nome deve ter no máximo 200 caracteres.")
+
     return value
 
 
@@ -42,6 +45,9 @@ def endereco(value: str) -> Optional[str]:
 
     if len(value) == 0:
         return None
+
+    if len(value) > 200:
+        raise ValueError("Endereço deve ter no máximo 200 caracteres.")
 
     return value
 
@@ -84,6 +90,9 @@ def telefone(value: str) -> Optional[str]:
     if not value.isdigit():
         raise ValueError("Telefone deve conter apenas dígitos.")
 
+    if len(value) > 14:
+        raise ValueError("Telefone deve ter no máximo 14 digitos.")
+
     return value
 
 
@@ -93,31 +102,7 @@ def email(value: str) -> Optional[str]:
     if len(value) == 0:
         return None
 
-    return value
-
-
-def carteira(value: str) -> str:
-    value = value.strip()
-
-    if len(value) == 0:
-        raise ValueError("")
-
-    return value
-
-
-def vinculo(value: str) -> str:
-    value = value.strip()
-
-    if len(value) == 0:
-        raise ValueError("")
-
-    return value
-
-
-def funcao(value: str) -> str:
-    value = value.strip()
-
-    if len(value) == 0:
-        raise ValueError("")
+    if len(value) > 200:
+        raise ValueError("Email deve ter no máximo 200 caracteres.")
 
     return value
