@@ -93,6 +93,33 @@ SELECT F.NOME AS NOME_TECNICO,
     WHERE (SYSDATE-R.DATA) < 30
     
     GROUP BY F.NOME;
+    
+-- 6° Consulta:
+-- Quais auditores participaram de todas as aprovações
+-- dos lotes criados em um dado mês?
+SELECT A.CPF_AUD AS CPF_AUDITOR,
+    A.NOME AS NOME_AUDITOR
+
+    FROM AUDITOR A
+    JOIN AUDITOR_APROVA_LOTE AL
+    ON A.CPF_AUD = AL.CPF_AUDITOR
+
+    WHERE AL.ID_LOTE IN (
+        SELECT ID_LOTE
+        FROM LOTE
+        WHERE EXTRACT(MONTH FROM DATA_PROD) = 1
+        AND EXTRACT(YEAR FROM DATA_PROD) = 2026
+    )
+
+    GROUP BY A.CPF_AUD, A.NOME
+
+    HAVING COUNT(DISTINCT AL.ID_LOTE) =
+    (
+        SELECT COUNT(*)
+        FROM LOTE
+        WHERE EXTRACT(MONTH FROM DATA_PROD) = 1
+        AND EXTRACT(YEAR FROM DATA_PROD) = 2026
+    );
 
 
 
