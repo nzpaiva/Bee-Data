@@ -5,9 +5,9 @@ import oracledb
 from application import Application
 
 # CONFIGURAÇÕES DE CONEXÃO
-DB_USER = "a13687449"
-DB_PASSWORD = "a895"
-DB_DSN = "orclgrad1.icmc.usp.br:1521/pdb_elaine.icmc.usp.br"
+DB_USER = ""
+DB_PASSWORD = ""
+DB_DSN = ""
 
 
 if __name__ == "__main__":
